@@ -1,0 +1,36 @@
+name: Deploy static site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Uncomment these steps if you have a build process (e.g., npm run build)
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '18'
+
+      # - name: Install dependencies
+      #   run: npm install
+
+      # - name: Build site
+      #   run: npm run build
+
+      # Set publish_dir to your static files output folder (e.g., ./build, ./dist, or ./ for root)
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./ # Change this if your files are in a subfolder
